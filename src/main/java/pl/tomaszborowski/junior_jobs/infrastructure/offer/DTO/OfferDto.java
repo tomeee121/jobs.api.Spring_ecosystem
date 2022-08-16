@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class OfferDTO {
+public class OfferDto {
     private String title;
     private String company;
     private String salary;

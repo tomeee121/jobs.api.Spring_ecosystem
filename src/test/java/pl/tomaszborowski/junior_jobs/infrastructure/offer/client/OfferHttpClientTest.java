@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.web.client.RestTemplate;
-import pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDTO;
+import pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ class OfferHttpClientTest implements RestTemplateExchange{
         OfferHttpClient offerHttpClient = new OfferHttpClient(restTemplate, uri);
 
         //when
-        List<OfferDTO> offers = offerHttpClient.getOffers();
+        List<OfferDto> offers = offerHttpClient.getOffers();
 
         //then
         Assertions.assertThat(offers.size()).isEqualTo(0);
@@ -42,7 +42,7 @@ class OfferHttpClientTest implements RestTemplateExchange{
         OfferHttpClient offerHttpClient = new OfferHttpClient(restTemplate, uri);
 
         //when
-        List<OfferDTO> offers = offerHttpClient.getOffers();
+        List<OfferDto> offers = offerHttpClient.getOffers();
 
         //then
         Assertions.assertThat(offers.size()).isEqualTo(1);
@@ -59,7 +59,7 @@ class OfferHttpClientTest implements RestTemplateExchange{
         OfferHttpClient offerHttpClient = new OfferHttpClient(restTemplate, uri);
 
         //when
-        List<OfferDTO> offers = offerHttpClient.getOffers();
+        List<OfferDto> offers = offerHttpClient.getOffers();
 
         //then
         Assertions.assertThat(offers.size()).isEqualTo(2);

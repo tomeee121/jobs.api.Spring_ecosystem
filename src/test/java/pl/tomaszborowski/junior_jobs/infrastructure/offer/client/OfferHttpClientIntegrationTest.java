@@ -12,11 +12,12 @@ import org.mockito.ArgumentMatchers;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import pl.tomaszborowski.junior_jobs.config.ConfigHttpOfferBeansForTests;
 import pl.tomaszborowski.junior_jobs.infrastructure.RemoteOfferClient;
 import pl.tomaszborowski.junior_jobs.infrastructure.error.RestTemplateResponseErrorHandler;
-import pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDTO;
+import pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,10 +25,11 @@ import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.springframework.util.SocketUtils.findAvailableTcpPort;
 
-public class OfferHttpClientIntegrationTest implements OfferApiResponses{
+public class OfferHttpClientIntegrationTest implements OfferApiResponses, SampleRestTemplateException{
 
     WireMockServer wireMockServer;
     int port = findAvailableTcpPort();
@@ -57,7 +59,7 @@ public class OfferHttpClientIntegrationTest implements OfferApiResponses{
         stubFor(WireMock.get(urlEqualTo("/offers"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
-                        .withBody(getJSONOfTwoOffers())));
+                        .withBody(getJsonOfTwoOffers())));
         //when
         //then
         then(remoteOfferClient.getOffers()).containsExactlyInAnyOrderElementsOf(Arrays.asList(getJuniorJavadeveloper(), getJuniorJavaFullstackdeveloper()));
@@ -93,11 +95,11 @@ public class OfferHttpClientIntegrationTest implements OfferApiResponses{
         stubFor(WireMock.get(urlEqualTo("/offers"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
-                        .withBody(getJSONOfTwoOffers())));
+                        .withBody(getJsonOfTwoOffers())));
         //when
         //then
-        List<OfferDTO> offerDTOList = new ArrayList<>();
-        then(remoteOfferClient.getOffers()).isInstanceOf(offerDTOList.getClass());
+        List<OfferDto> offerDtoList = new ArrayList<>();
+        then(remoteOfferClient.getOffers()).isInstanceOf(offerDtoList.getClass());
     }
 
 
@@ -108,13 +110,27 @@ public class OfferHttpClientIntegrationTest implements OfferApiResponses{
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withStatus(200)
-                        .withBody(getJSONOfTwoOffers())));
+                        .withBody(getJsonOfTwoOffers())));
         //when
-        ResponseEntity<List<OfferDTO>> exchange = restTemplate.exchange("http://localhost:" + port + "/offers", HttpMethod.GET, ArgumentMatchers.any(),
-                new ParameterizedTypeReference<List<OfferDTO>>() {});
+        ResponseEntity<List<OfferDto>> exchange = restTemplate.exchange("http://localhost:" + port + "/offers", HttpMethod.GET, ArgumentMatchers.any(),
+                new ParameterizedTypeReference<List<OfferDto>>() {});
 
         //then
         Assertions.assertEquals(200, exchange.getStatusCodeValue());
     }
+
+    @Test
+    public void whenApiDoesNotRespond_thenShouldInvokErrorHandler() {
+
+        //given
+        final ResponseErrorHandler actualResponse = new ConfigHttpOfferBeansForTests().restTemplate(1000, 1000, restTemplateResponseErrorHandler)
+                .getErrorHandler();
+        final RestTemplateResponseErrorHandler expectedResponse = getSampleRestTemplateException();
+
+        //when
+        //then
+        assertThat(actualResponse.getClass()).isEqualTo(expectedResponse.getClass());
+    }
+
 
 }

@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.web.client.RestTemplate;
 import pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -15,7 +16,7 @@ import static org.mockito.Mockito.when;
 class OfferHttpClientTest implements RestTemplateExchange{
 
     @Test
-    void shouldReturnOneElementListOfOffers_whenCalledExternalApi(){
+    void shouldReturnEmptyListOfOffers_whenCalledExternalApi(){
         //given
         RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
         String uri = "test";
@@ -28,11 +29,11 @@ class OfferHttpClientTest implements RestTemplateExchange{
         List<OfferDto> offers = offerHttpClient.getOffers();
 
         //then
-        Assertions.assertThat(offers.size()).isEqualTo(0);
+        org.junit.jupiter.api.Assertions.assertEquals(offers, Collections.emptyList());
     }
 
     @Test
-    void shouldReturnEmptyListOfOffers_whenCalledExternalApi(){
+    void shouldReturnOneElementListOfOffers_whenCalledExternalApi(){
         //given
         RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
         String uri = "test";

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.2</version>
+        <version>2.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pl.TomaszBorowski</groupId>
@@ -18,13 +18,13 @@
         <testcontainers.version>1.17.3</testcontainers.version>
         <wiremock.version>2.27.1</wiremock.version>
         <gson.version>2.9.0</gson.version>
-        <mongock-bom.version>4.3.4</mongock-bom.version>
+
+
+        <mongock-bom.version>4.3.7</mongock-bom.version>
+        <mongodb-driver-sync.version>4.0.5</mongodb-driver-sync.version>
+        <spring-data-mongodb.version>3.13</spring-data-mongodb.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -74,22 +74,22 @@
             <artifactId>mongodb-springdata-v3-driver</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-            <version>3.8.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-mongodb</artifactId>
-            <version>3.4.1</version>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.0.5</version>
         </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.github.cloudyrock.mongock</groupId>
                 <artifactId>mongock-bom</artifactId>
-                <version>5.0.17.RC</version>
+                <version>4.1.19</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -3,6 +3,7 @@ package pl.tomaszborowski.junior_jobs.mongock.changelog;
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import pl.tomaszborowski.junior_jobs.offer.domain.Offer;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferRepository;
 
@@ -11,8 +12,10 @@ import java.util.Arrays;
 @ChangeLog(order = "1")
 public class MongockDatabaseChangelog {
 
-    @ChangeSet(order = "1", author = "tomasz.borowski", id = "two.offers.initializing")
-    public void dataInitDB(@Autowired OfferRepository offerRepository){
+
+    @ChangeSet(order = "001", author = "tomasz.borowski", id = "two.offers.initializing")
+    public void dataInitDB(OfferRepository offerRepository){
+//        mongoTemplate.save(Arrays.asList(cyberSource(), cdqPoland()));
         offerRepository.insert(Arrays.asList(cyberSource(), cdqPoland()));
     }
 

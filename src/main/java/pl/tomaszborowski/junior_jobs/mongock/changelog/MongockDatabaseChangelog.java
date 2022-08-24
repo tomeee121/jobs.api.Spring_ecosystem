@@ -12,11 +12,13 @@ import java.util.Arrays;
 @ChangeLog(order = "1")
 public class MongockDatabaseChangelog {
 
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     @ChangeSet(order = "001", author = "tomasz.borowski", id = "two.offers.initializing")
     public void dataInitDB(OfferRepository offerRepository){
-//        mongoTemplate.save(Arrays.asList(cyberSource(), cdqPoland()));
-        offerRepository.insert(Arrays.asList(cyberSource(), cdqPoland()));
+        mongoTemplate.save(Arrays.asList(cyberSource(), cdqPoland()));
+//        offerRepository.insert(Arrays.asList(cyberSource(), cdqPoland()));
     }
 
     private Offer cyberSource() {

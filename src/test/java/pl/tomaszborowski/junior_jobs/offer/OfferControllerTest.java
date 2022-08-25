@@ -48,7 +48,7 @@ class OfferControllerTest implements OfferDtoSamples {
         String expectedResponseBody = objectMapper.writeValueAsString(cybersourceOffer());
 
         //when
-        final MvcResult mvcResult = mockMvc.perform(get("/offers/1"))
+        final MvcResult mvcResult = mockMvc.perform(get("/offers/63073c6c2db2415cbc03afab"))
                 .andExpect(status().isOk())
                 .andReturn();
         String actualResponseEntityBody = mvcResult.getResponse().getContentAsString();

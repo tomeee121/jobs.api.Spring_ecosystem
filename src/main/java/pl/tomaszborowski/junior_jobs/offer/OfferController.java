@@ -40,10 +40,6 @@ public class OfferController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OfferDto> findOfferById(@PathVariable String id) {
-        if(offerService.findOfferById(id) == null){
-            log.error("There is no offer with id of {}", id);
-            throw new OfferNotFoundException(id);
-        }
         return ResponseEntity.ok(offerService.findOfferById(id));
     }
 }

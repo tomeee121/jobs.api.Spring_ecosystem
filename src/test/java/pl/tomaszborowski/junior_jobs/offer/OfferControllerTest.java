@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import pl.tomaszborowski.junior_jobs.config.OfferControllerConfig;
 import pl.tomaszborowski.junior_jobs.offer.Dto.OfferDtoSamples;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferErrorResponse;

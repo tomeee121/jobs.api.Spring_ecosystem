@@ -3,7 +3,7 @@ package pl.tomaszborowski.junior_jobs.mongock.changelog;
 
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
-import pl.tomaszborowski.junior_jobs.offer.domain.Offer;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferRepo;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class MongockDatabaseChangelog {
     private Offer cyberSource() {
         final Offer cybersource = new Offer();
         cybersource.setOfferUrl("https://nofluffjobs.com/pl/job/software-engineer-mobile-m-f-d-cybersource-poznan-entavdpn");
-        cybersource.setTitle("Software Engineer - Mobile (m/f/d)");
+        cybersource.setPosition("Software Engineer - Mobile (m/f/d)");
         cybersource.setSalary("4k - 8k PLN");
         cybersource.setCompany("Cybersource");
         return cybersource;
@@ -28,7 +28,7 @@ public class MongockDatabaseChangelog {
     private Offer cdqPoland() {
         final Offer cybersource = new Offer();
         cybersource.setOfferUrl("https://nofluffjobs.com/pl/job/junior-devops-engineer-cdq-poland-wroclaw-gnymtxqd");
-        cybersource.setTitle("Junior DevOps Engineer");
+        cybersource.setPosition("Junior DevOps Engineer");
         cybersource.setSalary("8k - 14k PLN");
         cybersource.setCompany("CDQ Poland");
         return cybersource;

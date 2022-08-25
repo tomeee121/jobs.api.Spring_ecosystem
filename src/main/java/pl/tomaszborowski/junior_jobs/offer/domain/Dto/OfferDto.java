@@ -11,7 +11,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class OfferDto {
 
-    @JsonIgnore
+    @JsonProperty("id")
     private final String id;
     @JsonProperty("company")
     private final String companyName;

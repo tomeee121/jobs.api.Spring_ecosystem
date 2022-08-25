@@ -21,21 +21,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OfferController {
 
-    @Autowired
     OfferService offerService;
+
+    @Autowired
+    public OfferController(OfferService offerService) {
+        this.offerService = offerService;
+    }
 
     @GetMapping
     public ResponseEntity<List<OfferDto>> findAllOffers() {
         if(offerService.findAllOffers().isEmpty()){
             log.error("Invoked allOffers endpoint with empty data");
-            throw new OfferNotFoundException(-1);
+            throw new OfferNotFoundException("-1");
         }
         log.info("Invoked allOffers endpoint with {} data", offerService.findAllOffers());
         return ResponseEntity.ok(offerService.findAllOffers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OfferDto> findOfferById(@PathVariable long id) {
+    public ResponseEntity<OfferDto> findOfferById(@PathVariable String id) {
         if(offerService.findOfferById(id) == null){
             log.error("There is no offer with id of {}", id);
             throw new OfferNotFoundException(id);

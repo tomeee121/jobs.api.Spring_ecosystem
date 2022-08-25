@@ -1,21 +1,30 @@
 package pl.tomaszborowski.junior_jobs.offer.domain;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
+
 
 import java.util.Arrays;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OfferService {
 
+
+//    private final OfferRepo offerRepository;
+
 //    @Autowired
-//    OfferRepository offerRepository;
+//    MongoTemplate mongoTemplate;
 //    @EventListener(ApplicationReadyEvent.class)
 //    public void init(){
 //        mongoTemplate.save(Arrays.asList(cyberSource(), cdqPoland()));
-//        offerRepository.insert(Arrays.asList(cyberSource(), cdqPoland()));
+//        offerRepository.save(cyberSource());
 //    }
 
     private Offer cyberSource() {

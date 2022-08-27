@@ -7,6 +7,7 @@ import pl.tomaszborowski.junior_jobs.offer.Dto.OfferDtoSamples;
 import pl.tomaszborowski.junior_jobs.offer.OfferController;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferControllerExceptionHandler;
+import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferRepo;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferService;
 
@@ -43,8 +44,9 @@ public class OfferControllerConfig implements OfferDtoSamples {
                 else if(id.equals(MongoOffersIDs.cdqPoland)){
                     return cdqPolandOffer();
                 }
-
-                return null;
+                else {
+                    throw new OfferNotFoundException(id);
+                }
             }
         };
 

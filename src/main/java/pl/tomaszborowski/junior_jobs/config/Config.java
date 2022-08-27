@@ -20,7 +20,7 @@ public class Config {
     }
 
     @Bean
-    public RestTemplate restTemplate(@Value("${offer.http.client.config.connectTimeout") long connectTimeout,
+    public RestTemplate restTemplate(@Value("${offer.http.client.config.connectTimeout}") long connectTimeout,
                               @Value("${offer.http.client.config.readTimeout}") long readTimeout,
                               RestTemplateResponseErrorHandler httpErrorHandler){
         return new RestTemplateBuilder().errorHandler(httpErrorHandler).setConnectTimeout(Duration.ofMillis(connectTimeout))

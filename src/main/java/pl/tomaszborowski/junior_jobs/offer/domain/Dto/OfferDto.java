@@ -1,24 +1,22 @@
 package pl.tomaszborowski.junior_jobs.offer.domain.Dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Value;
 
 @Builder
-@Getter
-@EqualsAndHashCode
+@Value
 public class OfferDto {
 
-    @JsonIgnore
-    private final String id;
+    @JsonProperty("id")
+    private String id;
     @JsonProperty("company")
-    private final String companyName;
+    private String companyName;
     @JsonProperty("position")
-    private final String position;
+    private String position;
     @JsonProperty("salary")
-    private final String salary;
+    private String salary;
     @JsonProperty("offerUrl")
-    private final String offerUrl;
+    private String offerUrl;
 }
+

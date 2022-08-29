@@ -5,8 +5,9 @@ import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ActiveProfiles;
 import pl.tomaszborowski.junior_jobs.config.MongoOffersIDs;
-import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDtoSamples;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
 
@@ -15,9 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
-
 public class OfferServiceTest implements OfferDtoSamples {
-
 
     OfferRepo mockOffersRepo;
     OfferService offerService;

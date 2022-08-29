@@ -1,17 +1,17 @@
-package pl.tomaszborowski.junior_jobs.offer.domain.Dto;
+package pl.tomaszborowski.junior_jobs.offer.domain;
 
 import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
-import pl.tomaszborowski.junior_jobs.offer.domain.OfferMapper;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 
-public interface OfferDtoSamples {
-    default OfferDto cybersourceOffer(){
-        return OfferMapper.mapOfferToDto(cybersourceOffer);
+public interface OfferSamples {
+
+    default Offer cybersourceOffer(){
+        return cybersourceOffer;
     }
 
-    default OfferDto cdqPolandOffer(){
-        return OfferMapper.mapOfferToDto(cdqPolandOffer);
+    default Offer cdqPolandOffer(){
+        return cdqPolandOffer;
     }
-
 
     Offer cybersourceOffer = new Offer("63073c6c2db2415cbc03afab",
             "Software Engineer - Mobile (m/f/d)",
@@ -24,5 +24,4 @@ public interface OfferDtoSamples {
             "8k - 14k PLN",
             "https://nofluffjobs.com/pl/job/junior-devops-engineer-cdq-poland-wroclaw-gnymtxqd",
             "CDQ Poland");
-
 }

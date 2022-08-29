@@ -1,26 +1,51 @@
 package pl.tomaszborowski.junior_jobs.offer.domain;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 import pl.tomaszborowski.junior_jobs.JuniorJobsApplication;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = JuniorJobsApplication.class)
-@Profile("container")
+@ActiveProfiles("container")
 @Testcontainers
-public class OfferServiceWithContainerTest {
+public class OfferServiceWithContainerTest implements OfferSamples {
 
     @Container
-    private final static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo");
+    private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo");
 
-    static {
+     static {
         mongoDBContainer.start();
+
+
         Integer port = mongoDBContainer.getFirstMappedPort();
-        System.setProperty("DB_PORT", String.valueOf(port));
+        System.setProperty("MONGO_PORT", String.valueOf(port));
     }
 
+//    @DynamicPropertySource
+//    static void mongoDbProperties(DynamicPropertyRegistry registry) {
+//        registry.add("spring.data.mongodb.host", mongoDBContainer::getHost);
+//        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+//    }
 
+    @Test
+    void whenFindAllServiceMethodInvoked_ShouldReturnTwoElements(@Autowired OfferService offerService,
+                                                                 @Autowired OfferRepo offerRepo) {
+
+        Offer cybersourceOffer = cybersourceOffer();
+        Offer cdq = cdqPolandOffer();
+        then(offerRepo.findAll()).containsAll(Arrays.asList(cybersourceOffer, cdq));
+
+        final List<OfferDto> allOffers = offerService.findAllOffers();
+    }
 }

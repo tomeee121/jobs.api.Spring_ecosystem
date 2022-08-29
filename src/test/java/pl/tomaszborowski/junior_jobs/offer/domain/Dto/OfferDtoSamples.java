@@ -1,7 +1,6 @@
-package pl.tomaszborowski.junior_jobs.offer.Dto;
+package pl.tomaszborowski.junior_jobs.offer.domain.Dto;
 
 import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
-import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferMapper;
 
 public interface OfferDtoSamples {

@@ -1,22 +1,16 @@
-package pl.tomaszborowski.junior_jobs.offer;
+package pl.tomaszborowski.junior_jobs.offer.domain;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.test.context.ContextConfiguration;
 import pl.tomaszborowski.junior_jobs.config.MongoOffersIDs;
-import pl.tomaszborowski.junior_jobs.config.OfferControllerConfig;
-import pl.tomaszborowski.junior_jobs.offer.Dto.OfferDtoSamples;
-import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDtoSamples;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
-import pl.tomaszborowski.junior_jobs.offer.domain.OfferRepo;
-import pl.tomaszborowski.junior_jobs.offer.domain.OfferService;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +31,7 @@ public class OfferServiceTest implements OfferDtoSamples {
     public void whenFindAllOffersInvoked_ThenShouldReturnTwoElements() {
         //given
         final List<OfferDto> expectedAllOffers = Arrays.asList(cybersourceOffer(), cdqPolandOffer());
-        when(mockOffersRepo.findAll()).thenReturn(Arrays.asList(cybersourceOffer, cdqPolandOffer));
+        when(mockOffersRepo.findAll()).thenReturn(Arrays.asList(OfferDtoSamples.cybersourceOffer, OfferDtoSamples.cdqPolandOffer));
 
         //when
         final List<OfferDto> actualAllOffers = offerService.findAllOffers();
@@ -51,26 +45,26 @@ public class OfferServiceTest implements OfferDtoSamples {
     public void whenFindOfferWithIdInvoked_ThenShouldReturnOneElement() {
 
         //given
-        when(mockOffersRepo.findById(MongoOffersIDs.cdqPoland)).thenReturn(Optional.of(cdqPolandOffer));
+        when(mockOffersRepo.findById(MongoOffersIDs.cdqPoland)).thenReturn(Optional.of(OfferDtoSamples.cdqPolandOffer));
 
         //when
         final OfferDto offerById = offerService.findOfferById(MongoOffersIDs.cdqPoland);
 
         //then
-        BDDAssertions.then(offerById).isEqualToComparingOnlyGivenFields(cdqPolandOffer);
+        BDDAssertions.then(offerById).isEqualToComparingOnlyGivenFields(OfferDtoSamples.cdqPolandOffer);
     }
 
     @Test
     public void whenFindOfferWithIdInvoked_ThenShouldReturnOneDifferentElement() {
 
         //given
-        when(mockOffersRepo.findById(MongoOffersIDs.cybersource)).thenReturn(Optional.of(cybersourceOffer));
+        when(mockOffersRepo.findById(MongoOffersIDs.cybersource)).thenReturn(Optional.of(OfferDtoSamples.cybersourceOffer));
 
         //when
         final OfferDto offerById = offerService.findOfferById(MongoOffersIDs.cybersource);
 
         //then
-        BDDAssertions.then(offerById).isEqualToComparingOnlyGivenFields(cybersourceOffer);
+        BDDAssertions.then(offerById).isEqualToComparingOnlyGivenFields(OfferDtoSamples.cybersourceOffer);
     }
 
     @Test

@@ -3,7 +3,7 @@ package pl.tomaszborowski.junior_jobs.config;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.tomaszborowski.junior_jobs.offer.Dto.OfferDtoSamples;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDtoSamples;
 import pl.tomaszborowski.junior_jobs.offer.OfferController;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferControllerExceptionHandler;
@@ -12,11 +12,7 @@ import pl.tomaszborowski.junior_jobs.offer.domain.OfferRepo;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferService;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-
-import static org.mockito.Mockito.when;
 
 @Configuration(proxyBeanMethods = false)
 public class OfferControllerConfig implements OfferDtoSamples {

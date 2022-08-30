@@ -26,26 +26,20 @@ public class OfferServiceWithContainerTest implements OfferSamples {
 
      static {
         mongoDBContainer.start();
-
-
         Integer port = mongoDBContainer.getFirstMappedPort();
         System.setProperty("MONGO_PORT", String.valueOf(port));
     }
 
-//    @DynamicPropertySource
-//    static void mongoDbProperties(DynamicPropertyRegistry registry) {
-//        registry.add("spring.data.mongodb.host", mongoDBContainer::getHost);
-//        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
-//    }
-
     @Test
-    void whenFindAllServiceMethodInvoked_ShouldReturnTwoElements(@Autowired OfferService offerService,
-                                                                 @Autowired OfferRepo offerRepo) {
+    public void whenFindAllServiceMethodInvoked_ShouldReturnTwoElements(@Autowired OfferService offerService,
+                                                                        @Autowired OfferRepo offerRepo) {
 
-        Offer cybersourceOffer = cybersourceOffer();
-        Offer cdq = cdqPolandOffer();
-        then(offerRepo.findAll()).containsAll(Arrays.asList(cybersourceOffer, cdq));
+    Offer cybersourceOffer = cybersourceOffer();
+    Offer cdq = cdqPolandOffer();
+    then(offerRepo.findAll()).containsAll(Arrays.asList(cybersourceOffer, cdq));
 
-        final List<OfferDto> allOffers = offerService.findAllOffers();
+    final List<OfferDto> allOffers = offerService.findAllOffers();
     }
+
+
 }

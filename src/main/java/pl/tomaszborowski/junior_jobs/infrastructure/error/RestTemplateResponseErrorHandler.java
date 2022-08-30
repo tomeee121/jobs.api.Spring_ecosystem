@@ -1,5 +1,6 @@
 package pl.tomaszborowski.junior_jobs.infrastructure.error;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.DefaultResponseErrorHandler;

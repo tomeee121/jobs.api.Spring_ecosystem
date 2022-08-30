@@ -30,16 +30,16 @@ class OfferControllerConfiguration implements OfferDtoSamples {
         return new OfferService(offerRepoMock){
             @Override
             public List<OfferDto> findAllOffers() {
-                return Arrays.asList(cybersourceOffer(), cdqPolandOffer());
+                return Arrays.asList(cybersourceDtoOffer(), cdqPolandDtoOffer());
             }
 
             @Override
             public OfferDto findOfferById(String id) {
                 if(id.equals(MongoOffersIDs.cybersource)){
-                    return cybersourceOffer();
+                    return cybersourceDtoOffer();
                 }
                 else if(id.equals(MongoOffersIDs.cdqPoland)){
-                    return cdqPolandOffer();
+                    return cdqPolandDtoOffer();
                 }
                 else {
                     throw new OfferNotFoundException(id);

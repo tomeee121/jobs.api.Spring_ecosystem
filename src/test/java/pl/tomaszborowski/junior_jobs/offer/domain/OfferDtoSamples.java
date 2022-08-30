@@ -7,11 +7,11 @@ import pl.tomaszborowski.junior_jobs.offer.domain.OfferMapper;
 
 public interface OfferDtoSamples {
 
-    default OfferDto cybersourceOffer(){
+    default OfferDto cybersourceDtoOffer(){
         return OfferMapper.mapOfferToDto(cybersourceOffer);
     }
 
-    default OfferDto cdqPolandOffer(){
+    default OfferDto cdqPolandDtoOffer(){
         return OfferMapper.mapOfferToDto(cdqPolandOffer);
     }
 

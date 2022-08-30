@@ -1,4 +1,4 @@
-package pl.tomaszborowski.junior_jobs.offer;
+package pl.tomaszborowski.junior_jobs.offer.OfferControllerTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
@@ -9,10 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import pl.tomaszborowski.junior_jobs.config.OfferControllerConfig;
-import pl.tomaszborowski.junior_jobs.offer.Dto.OfferDtoSamples;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferErrorResponse;
+import pl.tomaszborowski.junior_jobs.offer.domain.OfferDtoSamples;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-@ContextConfiguration(classes = OfferControllerConfig.class)
+@ContextConfiguration(classes = OfferControllerConfiguration.class)
 class OfferControllerTest implements OfferDtoSamples {
 
     @Test

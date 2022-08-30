@@ -23,8 +23,8 @@
         <mongock-bom.version>4.3.8</mongock-bom.version>
         <mongock-spring-v5.version>4.3.8</mongock-spring-v5.version>
         <mongodb-springdata-v3-driver.version>4.3.8</mongodb-springdata-v3-driver.version>
-        <mongodb-testcontainers.version>1.17.1</mongodb-testcontainers.version>
-        <junit-testcontainers.version>1.17.1</junit-testcontainers.version>
+        <mongodb-testcontainers.version>1.15.1</mongodb-testcontainers.version>
+        <junit-testcontainers.version>1.15.1</junit-testcontainers.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
@@ -111,6 +111,7 @@
             <version>${junit-testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>

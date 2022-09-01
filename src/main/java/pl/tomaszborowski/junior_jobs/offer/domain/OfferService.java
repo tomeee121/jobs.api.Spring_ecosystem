@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
 
@@ -28,6 +29,11 @@ public class OfferService {
 
     public OfferDto findOfferById(String id) {
         return offerRepo.findById(id).map(OfferMapper::mapOfferToDto).orElseThrow(() -> new OfferNotFoundException(id));
+    }
+    public List<OfferDto> saveOffers(List<OfferDto> offers) {
+        List<Offer> offersSaved = offerRepo.saveAll(offers.stream().map(offerDto -> OfferMapper.mapToOffer(offerDto))
+                .collect(Collectors.toList()));
+        return offersSaved.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
     }
 
 }

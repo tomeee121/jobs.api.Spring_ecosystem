@@ -29,7 +29,7 @@ public class OfferServiceTest implements OfferDtoSamples {
     @Test
     public void whenFindAllOffersInvoked_ThenShouldReturnTwoElements() {
         //given
-        final List<OfferDto> expectedAllOffers = Arrays.asList(cybersourceOffer(), cdqPolandOffer());
+        final List<OfferDto> expectedAllOffers = Arrays.asList(cybersourceDtoOffer(), cdqPolandDtoOffer());
         when(mockOffersRepo.findAll()).thenReturn(Arrays.asList(OfferDtoSamples.cybersourceOffer, OfferDtoSamples.cdqPolandOffer));
 
         //when

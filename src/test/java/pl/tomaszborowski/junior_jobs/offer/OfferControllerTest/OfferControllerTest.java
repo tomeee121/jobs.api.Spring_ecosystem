@@ -27,7 +27,7 @@ class OfferControllerTest implements OfferDtoSamples {
     @Test
     void shouldReturnStatusOkWithTwoElements_whenEndpointOffersInvoked(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception {
         //given
-        final List<OfferDto> offersList = Arrays.asList(cybersourceOffer(), cdqPolandOffer());
+        final List<OfferDto> offersList = Arrays.asList(cybersourceDtoOffer(), cdqPolandDtoOffer());
         String offers = objectMapper.writeValueAsString(offersList);
 
         //when
@@ -44,7 +44,7 @@ class OfferControllerTest implements OfferDtoSamples {
     @Test
     public void shouldReturnStatusOkWithGivenElement_whenEndpointOffersWithPathVariableInvoked(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception {
         //given
-        String expectedResponseBody = objectMapper.writeValueAsString(cybersourceOffer());
+        String expectedResponseBody = objectMapper.writeValueAsString(cybersourceDtoOffer());
 
         //when
         final MvcResult mvcResult = mockMvc.perform(get("/offers/63073c6c2db2415cbc03afab"))

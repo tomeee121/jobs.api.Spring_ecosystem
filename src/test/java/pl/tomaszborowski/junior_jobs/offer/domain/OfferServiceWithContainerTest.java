@@ -1,7 +1,6 @@
 package pl.tomaszborowski.junior_jobs.offer.domain;
 
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +18,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.assertj.core.api.ThrowableAssert.catchThrowable;
-import static pl.tomaszborowski.junior_jobs.offer.domain.OfferSamples.cybersourceOffer;
 
 @SpringBootTest(classes = JuniorJobsApplication.class)
 @ActiveProfiles("container")

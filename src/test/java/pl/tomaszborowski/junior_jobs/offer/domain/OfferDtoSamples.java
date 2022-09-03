@@ -15,6 +15,16 @@ public interface OfferDtoSamples {
         return OfferMapper.mapOfferToDto(cdqPolandOffer);
     }
 
+    default OfferDto createOfferDto(String companyName, String position,String salary, String offerUrl){
+        Offer offer = new Offer();
+        offer.setCompany(companyName);
+        offer.setPosition(position);
+        offer.setSalary(salary);
+        offer.setOfferUrl(offerUrl);
+        OfferDto offerDto = OfferMapper.mapOfferToDto(offer);
+        return offerDto;
+    }
+
     Offer cybersourceOffer = new Offer("63073c6c2db2415cbc03afab",
             "Software Engineer - Mobile (m/f/d)",
             "4k - 8k PLN",

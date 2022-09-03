@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class HttpOfferClientScheduler {
+class HttpOfferClientScheduler {
 
     private final OfferService offerService;
     private final RemoteOfferClient remoteOfferClient;
@@ -31,7 +31,7 @@ public class HttpOfferClientScheduler {
     @Scheduled(fixedDelayString = "${http.offers.scheduler.request.delay}")
     public void getOffersFromHttpClientEvery3Hours() {
         logger.info(STARTED_OFFERS_FETCHING_MESSAGE, dateFormat.format(new Date()));
-        List<OfferDto> offersFromHttpClient = offerService.findAllOffers();
+        List<pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto> offersFromHttpClient = remoteOfferClient.getOffers();
         List<OfferDto> offersAddedToDB = offerService.saveOffersDirectlyFromHttpClient(offersFromHttpClient);
         logger.info(ADDED_NEW_OFFERS_MESSAGE, offersAddedToDB.size());
         logger.info(STOPPED_OFFERS_FETCHING_MESSAGE, dateFormat.format(new Date()));

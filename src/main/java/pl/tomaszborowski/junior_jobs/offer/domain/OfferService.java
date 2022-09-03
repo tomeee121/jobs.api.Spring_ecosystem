@@ -35,14 +35,14 @@ public class OfferService {
                 .collect(Collectors.toList()));
         return offersSaved.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
     }
-    public List<OfferDto> saveOffersDirectlyFromHttpClient(List<OfferDto> offersFromHttpClient) {
+    public List<OfferDto> saveOffersDirectlyFromHttpClient(List<pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto> offersFromHttpClient) {
         List<Offer> offersDao = offersFromHttpClient.stream()
                 .filter(offerDto -> !offerDto.getOfferUrl().equals(null))
                 .filter(offerDto -> !offerRepo.existsByOfferUrl(offerDto.getOfferUrl()))
-                .map(offerDto -> OfferMapper.mapToOffer(offerDto))
+                .map(offerDto -> OfferMapper.mapToOfferFromHttpClientOfferDto(offerDto))
                 .collect(Collectors.toList());
-        offerRepo.saveAll(offersDao)
-        return offersSaved.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
+        offerRepo.saveAll(offersDao);
+        return offersDao.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
     }
 
 }

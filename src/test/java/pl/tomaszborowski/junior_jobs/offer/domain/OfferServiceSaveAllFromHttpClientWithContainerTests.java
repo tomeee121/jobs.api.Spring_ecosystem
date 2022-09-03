@@ -10,7 +10,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.tomaszborowski.junior_jobs.JuniorJobsApplication;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
-import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 
 import java.util.Arrays;
 
@@ -36,11 +35,11 @@ public class OfferServiceSaveAllFromHttpClientWithContainerTests implements Offe
                 "urlsecondTest",
                 "positionsecondTest",
                 "10k");
-        final OfferDto addeableOffer2 = createOfferDto("UNIQUE",
+        final pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto addeableOffer2 = createHttpClientOfferDto("UNIQUE",
                 "urlfirstTest",
                 "positionfirstTest",
                 "12k");
-        final OfferDto existingOffer = createOfferDto("NOT_UNIQUE",
+        final pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto existingOffer = createHttpClientOfferDto("NOT_UNIQUE",
                 "urlThirdTest",
                 "positionfirstTest",
                 "10k");

@@ -15,13 +15,12 @@ public interface OfferDtoSamples {
         return OfferMapper.mapOfferToDto(cdqPolandOffer);
     }
 
-    default OfferDto createOfferDto(String companyName, String position,String salary, String offerUrl){
-        Offer offer = new Offer();
-        offer.setCompany(companyName);
-        offer.setPosition(position);
-        offer.setSalary(salary);
-        offer.setOfferUrl(offerUrl);
-        OfferDto offerDto = OfferMapper.mapOfferToDto(offer);
+    default pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto createHttpClientOfferDto(String companyName, String position, String salary, String offerUrl){
+        pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto offerDto = new pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto();
+        offerDto.setCompany(companyName);
+        offerDto.setTitle(position);
+        offerDto.setSalary(salary);
+        offerDto.setOfferUrl(offerUrl);
         return offerDto;
     }
 

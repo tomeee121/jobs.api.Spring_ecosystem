@@ -3,6 +3,7 @@ package pl.tomaszborowski.junior_jobs.infrastructure.error;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.server.ResponseStatusException;
 

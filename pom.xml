@@ -28,6 +28,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <awaitility.version>4.0.3</awaitility.version>
+        <spring-data-redis.version>2.4.5</spring-data-redis.version>
+        <jedis.version>3.3.0</jedis.version>
     </properties>
     <dependencies>
         <dependency>
@@ -122,7 +124,16 @@
             <version>${awaitility.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
 
     </dependencies>
     <build>

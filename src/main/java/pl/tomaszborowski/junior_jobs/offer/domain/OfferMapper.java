@@ -23,4 +23,14 @@ public class OfferMapper {
                 .offerUrl(offerDto.getOfferUrl())
                 .build();
     }
+
+    public static Offer mapToOfferFromHttpClientOfferDto(pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto offerDto){
+        return Offer.builder()
+                .company(offerDto.getCompany())
+                .position(offerDto.getTitle())
+                .salary(offerDto.getSalary())
+                .offerUrl(offerDto.getOfferUrl())
+                .build();
+    }
+
 }

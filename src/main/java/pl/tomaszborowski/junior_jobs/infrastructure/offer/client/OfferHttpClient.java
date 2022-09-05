@@ -18,6 +18,7 @@ public class OfferHttpClient implements RemoteOfferClient {
     private final RestTemplate restTemplate;
     private final String Uri;
 
+
     @Override
     public List<OfferDto> getOffers() {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -34,4 +35,5 @@ public class OfferHttpClient implements RemoteOfferClient {
         }
 
     }
+
 }

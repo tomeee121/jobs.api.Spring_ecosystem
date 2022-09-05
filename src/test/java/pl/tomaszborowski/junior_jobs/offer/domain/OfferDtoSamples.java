@@ -15,6 +15,15 @@ public interface OfferDtoSamples {
         return OfferMapper.mapOfferToDto(cdqPolandOffer);
     }
 
+    default pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto createHttpClientOfferDto(String companyName, String position, String salary, String offerUrl){
+        pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto offerDto = new pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto();
+        offerDto.setCompany(companyName);
+        offerDto.setTitle(position);
+        offerDto.setSalary(salary);
+        offerDto.setOfferUrl(offerUrl);
+        return offerDto;
+    }
+
     Offer cybersourceOffer = new Offer("63073c6c2db2415cbc03afab",
             "Software Engineer - Mobile (m/f/d)",
             "4k - 8k PLN",

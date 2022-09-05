@@ -3,12 +3,14 @@ package pl.tomaszborowski.junior_jobs.mongock.changelog;
 
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
+import org.springframework.context.annotation.Profile;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferRepo;
 
 import java.util.Arrays;
 
 @ChangeLog(order = "1")
+@Profile("!container")
 public class MongockDatabaseChangelog {
 
     @ChangeSet(order = "001", author = "tomasz.borowski", id = "two.offers.initializing")

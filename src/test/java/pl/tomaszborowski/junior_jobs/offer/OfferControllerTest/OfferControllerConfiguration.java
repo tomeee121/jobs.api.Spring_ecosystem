@@ -15,7 +15,7 @@ import pl.tomaszborowski.junior_jobs.offer.domain.OfferService;
 import java.util.Arrays;
 import java.util.List;
 
-@Configuration(proxyBeanMethods = false)
+//@Configuration(proxyBeanMethods = false)
 class OfferControllerConfiguration implements OfferDtoSamples {
 
     @Bean

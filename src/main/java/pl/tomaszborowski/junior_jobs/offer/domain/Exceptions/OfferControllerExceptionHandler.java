@@ -21,5 +21,15 @@ public class OfferControllerExceptionHandler {
         return new ResponseEntity<>(offerErrorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(OfferExistsException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<OfferErrorResponse> offerExistsExceptionResponse(OfferExistsException exception){
+        OfferErrorResponse offerErrorResponse = new OfferErrorResponse(exception.getMessage(), HttpStatus.CONFLICT);
+        log.info("Exception thrown with message: "+offerErrorResponse);
+
+        return new ResponseEntity<>(offerErrorResponse, HttpStatus.NOT_FOUND);
+    }
+
 }
 

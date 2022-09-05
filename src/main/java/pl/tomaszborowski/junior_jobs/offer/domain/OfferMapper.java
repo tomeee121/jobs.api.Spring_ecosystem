@@ -4,6 +4,7 @@ import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 
 public class OfferMapper {
+
     public static OfferDto mapOfferToDto(Offer offer){
         return OfferDto.builder()
                 .id(offer.getId())

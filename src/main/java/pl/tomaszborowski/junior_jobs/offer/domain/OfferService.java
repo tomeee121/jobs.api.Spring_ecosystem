@@ -1,10 +1,13 @@
 package pl.tomaszborowski.junior_jobs.offer.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.DuplicateKeyException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
+import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferExistsException;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
 
 import java.util.List;
@@ -40,7 +43,15 @@ public class OfferService {
         offerRepo.saveAll(offersDao);
         return offersDao.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
     }
-
     public OfferDto createOrUpdateOffer(OfferDto offerDto) {
+        Offer offer;
+        try{
+            offer = offerRepo.save(OfferMapper.mapToOffer(offerDto));
+        }
+        catch (DuplicateKeyException exception){
+            throw new OfferExistsException("There is already an offer with URL of " + offerDto.getOfferUrl());
+        }
+        return OfferMapper.mapOfferToDto(offer);
+
     }
 }

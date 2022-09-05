@@ -41,4 +41,6 @@ public class OfferService {
         return offersDao.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
     }
 
+    public OfferDto createOrUpdateOffer(OfferDto offerDto) {
+    }
 }

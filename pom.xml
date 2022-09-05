@@ -30,6 +30,9 @@
         <awaitility.version>4.0.3</awaitility.version>
         <spring-data-redis.version>2.4.5</spring-data-redis.version>
         <jedis.version>3.3.0</jedis.version>
+        <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <springfox-schema.version>2.9.2</springfox-schema.version>
     </properties>
     <dependencies>
         <dependency>
@@ -134,7 +137,21 @@
             <artifactId>jedis</artifactId>
             <version>${jedis.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger-ui.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-schema</artifactId>
+            <version>${springfox-schema.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

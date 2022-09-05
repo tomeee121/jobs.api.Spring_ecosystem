@@ -4,15 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -41,5 +40,15 @@ public class OfferController {
     @GetMapping("/{id}")
     public ResponseEntity<OfferDto> findOfferById(@PathVariable String id) {
         return ResponseEntity.ok(offerService.findOfferById(id));
+    }
+
+    @PostMapping("/offers")
+    public ResponseEntity<OfferDto> createOrUpdateOffer(@RequestBody OfferDto offerDto) {
+        if (offerDto.getId() != null) {
+            log.info("Updating offer with id {} ", offerDto.getId());
+            return new ResponseEntity<>(offerService.createOrUpdateOffer(offerDto), HttpStatus.OK);
+        }
+        log.info("Added new offer");
+        return new ResponseEntity<>(offerService.createOrUpdateOffer(offerDto), HttpStatus.CREATED);
     }
 }

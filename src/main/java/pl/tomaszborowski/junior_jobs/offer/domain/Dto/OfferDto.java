@@ -1,13 +1,13 @@
 package pl.tomaszborowski.junior_jobs.offer.domain.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Value;
+import lombok.*;
 
 @Builder
-@Value
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class OfferDto {
 
     @JsonProperty("id")

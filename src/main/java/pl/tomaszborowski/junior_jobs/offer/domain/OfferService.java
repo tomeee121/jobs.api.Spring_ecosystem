@@ -44,14 +44,16 @@ public class OfferService {
         return offersDao.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
     }
     public OfferDto createOrUpdateOffer(OfferDto offerDto) {
+        OfferDto offerDtoElement;
         Offer offer;
         try{
             offer = offerRepo.save(OfferMapper.mapToOffer(offerDto));
+            offerDtoElement = offer != null ? OfferMapper.mapOfferToDto(offer) : null;
         }
         catch (DuplicateKeyException exception){
             throw new OfferExistsException("There is already an offer with URL of " + offerDto.getOfferUrl());
         }
-        return OfferMapper.mapOfferToDto(offer);
+        return offerDtoElement;
 
     }
 }

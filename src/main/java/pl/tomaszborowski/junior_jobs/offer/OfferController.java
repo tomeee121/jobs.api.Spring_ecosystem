@@ -42,8 +42,8 @@ public class OfferController {
         return ResponseEntity.ok(offerService.findOfferById(id));
     }
 
-    @PostMapping("/offers")
-    public ResponseEntity<OfferDto> createOrUpdateOffer(@RequestBody OfferDto offerDto) {
+    @PostMapping
+    public ResponseEntity<OfferDto> createOrUpdateOffer(@Valid @RequestBody OfferDto offerDto) {
         if (offerDto.getId() != null) {
             log.info("Updating offer with id {} ", offerDto.getId());
             return new ResponseEntity<>(offerService.createOrUpdateOffer(offerDto), HttpStatus.OK);

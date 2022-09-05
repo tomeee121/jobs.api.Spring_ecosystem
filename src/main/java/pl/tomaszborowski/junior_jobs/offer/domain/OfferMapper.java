@@ -11,7 +11,7 @@ public class OfferMapper {
                 .companyName(offer.getCompany())
                 .position(offer.getPosition())
                 .salary(offer.getSalary())
-                .offerUrl(offer.getSalary())
+                .offerUrl(offer.getOfferUrl())
                 .build();
     }
 

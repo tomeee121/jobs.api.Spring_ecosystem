@@ -1,14 +1,18 @@
 package pl.tomaszborowski.junior_jobs.offer.OfferControllerTest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferErrorResponse;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferDtoSamples;
@@ -18,6 +22,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -71,5 +76,69 @@ class OfferControllerTest implements OfferDtoSamples {
         //then
         assertThat(contentAsString).isEqualTo(offerErrorResponseJSON);
     }
+
+    @Test
+    public void whenNotExistingOfferAddedWithoutId_shouldReturnStatusCreated(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception {
+        //given
+        String uniqueOfferWithoutIdToAdd = objectMapper.writeValueAsString(getUniqueOfferDtoWithoutId());
+
+        //when
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/offers").content(uniqueOfferWithoutIdToAdd)
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isCreated()).andReturn();
+        String contentAdded = mvcResult.getResponse().getContentAsString();
+
+        //then
+        Assertions.assertThat(contentAdded).isEqualTo(uniqueOfferWithoutIdToAdd);
+    }
+
+    @Test
+    public void whenExistingOfferAddedWithId_shouldReturnStatusOK(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception {
+        //given
+        String offerToBeUpdatedWithId = objectMapper.writeValueAsString(getUniqueOfferDtoWithId());
+
+        //when
+        MvcResult mvcResult = mockMvc.perform(post("/offers")
+                        .content(offerToBeUpdatedWithId)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        String contentUpdated = mvcResult.getResponse().getContentAsString();
+        //then
+        Assertions.assertThat(contentUpdated).isEqualTo(offerToBeUpdatedWithId);
+    }
+
+    @Test
+    public void whenOfferWithDuplicateOfUniqueFieldAdded_shouldReturnStatusConflict(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception {
+        //given
+        String expectedMvcErrorResponse = "There is already an offer with URL of " + getExistingUrlDtoOffer().getOfferUrl();
+        String duplicateOfferToBeAdded = objectMapper.writeValueAsString(getExistingUrlDtoOffer());
+
+        //when
+        MvcResult mvcResult = mockMvc.perform(post("/offers")
+                        .content(duplicateOfferToBeAdded)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isConflict()).andReturn();
+        String JSONResponse = mvcResult.getResponse().getContentAsString();
+        OfferErrorResponse offerErrorResponse = objectMapper.readValue(JSONResponse, OfferErrorResponse.class);
+        //then
+        Assertions.assertThat(offerErrorResponse.getMessage()).isEqualTo(expectedMvcErrorResponse);
+    }
+    @Test
+    public void whenOfferWithEmptyFieldsAddeded_shouldReturnStatusBadRequest(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception {
+        //given
+        String emptyOfferJSON = objectMapper.writeValueAsString(getEmptyOfferDto());
+        String emptyOfferUrlValidationMessage = "Offer url cannot be empty.";
+
+        //when
+        MvcResult mvcResult = mockMvc.perform(post("/offers").content(emptyOfferJSON).contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isBadRequest()).andReturn();
+        int responseStatus = mvcResult.getResponse().getStatus();
+        String errorResponse = mvcResult.getResponse().getContentAsString();
+        //THEN
+        Assertions.assertThat(responseStatus).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        Assertions.assertThat(errorResponse).contains(emptyOfferUrlValidationMessage);
+    }
+
+
 
 }

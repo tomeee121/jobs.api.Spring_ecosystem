@@ -32,7 +32,7 @@ public class OfferControllerExceptionHandler {
         OfferErrorResponse offerErrorResponse = new OfferErrorResponse(exception.getMessage(), HttpStatus.CONFLICT);
         log.info("Exception thrown with message: "+offerErrorResponse);
 
-        return new ResponseEntity<>(offerErrorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(offerErrorResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -41,10 +41,10 @@ public class OfferControllerExceptionHandler {
     public ResponseEntity<OfferErrorResponse> constraintViolationExceptionResponse(MethodArgumentNotValidException exception){
         ArrayList<String> exceptions = new ArrayList<>();
         exception.getBindingResult().getAllErrors().forEach(exceptionOccured -> exceptions.add(exceptionOccured.toString()));
-        OfferErrorResponse offerErrorResponse = new OfferErrorResponse(exceptions.toString(), HttpStatus.CONFLICT);
+        OfferErrorResponse offerErrorResponse = new OfferErrorResponse(exceptions.toString(), HttpStatus.BAD_REQUEST);
         log.info("Exception thrown with message: "+offerErrorResponse);
 
-        return new ResponseEntity<>(offerErrorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(offerErrorResponse, HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -15,6 +15,21 @@ public interface OfferDtoSamples {
         return OfferMapper.mapOfferToDto(cdqPolandOffer);
     }
 
+    default OfferDto getUniqueOfferDtoWithId(){
+        return OfferMapper.mapOfferToDto(offerWithUniqueFieldsAndId);
+    }
+    default OfferDto getUniqueOfferDtoWithoutId(){
+        return OfferMapper.mapOfferToDto(offerWithUniqueFieldsWithoutId);
+    }
+
+    default OfferDto getExistingUrlDtoOffer(){
+        return OfferMapper.mapOfferToDto(offerWithExistingUrl);
+    }
+
+    default OfferDto getEmptyOfferDto(){
+        return OfferMapper.mapOfferToDto(emptyOffer);
+    }
+
     default pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto createHttpClientOfferDto(String companyName, String position, String salary, String offerUrl){
         pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto offerDto = new pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto();
         offerDto.setCompany(companyName);
@@ -36,4 +51,27 @@ public interface OfferDtoSamples {
             "https://nofluffjobs.com/pl/job/junior-devops-engineer-cdq-poland-wroclaw-gnymtxqd",
             "CDQ Poland");
 
+    Offer offerWithUniqueFieldsAndId = new Offer("abc123",
+            "Junior DevOps Engineer",
+            "HP",
+            "10k",
+            "example.com/1");
+
+    Offer offerWithUniqueFieldsWithoutId = new Offer(null,
+            "Junior Security Engineer",
+            "Google",
+            "9k",
+            "example.com/11");
+
+    Offer offerWithExistingUrl = new Offer("abc124",
+            "Junior Front end Engineer",
+            "Facebook",
+            "8k",
+            "example.com/1");
+
+    Offer emptyOffer = new Offer("",
+            "",
+            "",
+            "",
+            "");
 }

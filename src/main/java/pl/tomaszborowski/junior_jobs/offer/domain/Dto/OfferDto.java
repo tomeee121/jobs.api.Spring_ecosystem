@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Getter
 @Setter
 public class OfferDto {

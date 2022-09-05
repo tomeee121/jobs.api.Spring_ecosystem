@@ -2,6 +2,7 @@ package pl.tomaszborowski.junior_jobs.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -21,7 +22,7 @@ public class SwaggerConfig {
     public Docket swagger() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("junior_jobs"))
+                .apis(RequestHandlerSelectors.basePackage("pl.tomaszborowski.junior_jobs"))
                 .paths(any())
                 .build()
                 .apiInfo(apiInfo());

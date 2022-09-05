@@ -33,6 +33,7 @@
         <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <springfox-schema.version>2.9.2</springfox-schema.version>
+        <spring-boot-starter-security.version>2.4.3</spring-boot-starter-security.version>
     </properties>
     <dependencies>
         <dependency>
@@ -152,6 +153,12 @@
             <artifactId>springfox-schema</artifactId>
             <version>${springfox-schema.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot-starter-security.version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

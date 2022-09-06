@@ -14,7 +14,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     @PostMapping
-    public ResponseEntity<> login(@Valid @RequestBody LoginRequestDto loginRequestDto){
+    public void login(@Valid @RequestBody LoginRequestDto loginRequestDto){
 
     }
 }

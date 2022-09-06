@@ -3,6 +3,7 @@ package pl.tomaszborowski.junior_jobs.security.login.Dto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import pl.tomaszborowski.junior_jobs.security.login.Dao.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;

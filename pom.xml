@@ -34,6 +34,7 @@
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <springfox-schema.version>2.9.2</springfox-schema.version>
         <spring-boot-starter-security.version>2.6.7</spring-boot-starter-security.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
     <dependencies>
         <dependency>
@@ -158,6 +159,12 @@
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring-boot-starter-security.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+
 
     </dependencies>
     <build>

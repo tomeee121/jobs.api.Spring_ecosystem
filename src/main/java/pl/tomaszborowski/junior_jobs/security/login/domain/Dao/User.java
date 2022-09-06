@@ -1,4 +1,4 @@
-package pl.tomaszborowski.junior_jobs.security.login.Dao;
+package pl.tomaszborowski.junior_jobs.security.login.domain.Dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

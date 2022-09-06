@@ -1,6 +1,5 @@
-package pl.tomaszborowski.junior_jobs.security.login.Dao;
+package pl.tomaszborowski.junior_jobs.security.login.domain.Dao;
 
-import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

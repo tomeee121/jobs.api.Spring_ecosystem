@@ -1,5 +1,6 @@
 package pl.tomaszborowski.junior_jobs.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,15 +10,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.tomaszborowski.junior_jobs.security.login.domain.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private AuthTokenFilter authTokenFilter;
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    public SecurityConfig(AuthTokenFilter authTokenFilter, UserDetailsService userDetailsService) {
+        this.authTokenFilter = authTokenFilter;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()
                 .and().httpBasic().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
 
     }
@@ -48,12 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return null;
-            }
-        }).passwordEncoder(passwordEncoder());
+        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean

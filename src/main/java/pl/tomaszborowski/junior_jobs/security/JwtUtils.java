@@ -1,31 +1,26 @@
 package pl.tomaszborowski.junior_jobs.security;
 
 import io.jsonwebtoken.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-import pl.tomaszborowski.junior_jobs.security.login.domain.Dao.User;
 
 import java.util.Date;
 
-@Component
 @Slf4j
+@RequiredArgsConstructor
 public class JwtUtils {
 
     private final String jwtSecret;
-    private final int expirationTimeSeconds;
+    private final int expirationTimeMSeconds;
 
-    public JwtUtils(@Value("${offers.jwt.secret}") String jwtSecret,@Value("${offers.expiration.time.seconds}") int expirationTimeSeconds) {
-        this.jwtSecret = jwtSecret;
-        this.expirationTimeSeconds = expirationTimeSeconds;
-    }
 
     public String generateJwt(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        String jwt = Jwts.builder().setSubject(userDetails.getUsername()).setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + expirationTimeSeconds))
+        String jwt = Jwts.builder().setSubject(userDetails.getUsername()).setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + expirationTimeMSeconds))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret).compact();
         return jwt;
     }

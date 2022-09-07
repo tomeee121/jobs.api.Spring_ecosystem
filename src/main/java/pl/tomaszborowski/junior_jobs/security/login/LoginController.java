@@ -30,19 +30,13 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDto loginRequestDto){
-        System.out.println("kontroler login");
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getUserName(),
                 loginRequestDto.getPassword()));
         if(authentication.isAuthenticated()){
-            System.out.println("autenticated");
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return new ResponseEntity<>(jwtUtils.generateJwt(authentication), HttpStatus.ACCEPTED);
         }
-
-        System.out.println("not autenticated");
         return new ResponseEntity<String>("Bad credentials", HttpStatus.UNAUTHORIZED);
-
     }
 }

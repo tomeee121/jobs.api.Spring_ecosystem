@@ -4,6 +4,8 @@ import com.mongodb.DuplicateKeyException;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import pl.tomaszborowski.junior_jobs.config.MessageSourceConfig;
 import pl.tomaszborowski.junior_jobs.config.MongoOffersIDs;
 import pl.tomaszborowski.junior_jobs.offer.OfferController;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
@@ -15,10 +17,12 @@ import pl.tomaszborowski.junior_jobs.offer.domain.OfferDtoSamples;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferMapper;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferRepo;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferService;
+import pl.tomaszborowski.junior_jobs.security.SecurityConfig;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Import({JwtFilterTestConfig.class, SecurityConfig.class, MessageSourceConfig.class})
 class OfferControllerConfiguration implements OfferDtoSamples {
 
     @Bean

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import pl.tomaszborowski.junior_jobs.security.login.SecurityContextUpdater;
 import pl.tomaszborowski.junior_jobs.security.login.domain.AuthEntryPoint;
 import pl.tomaszborowski.junior_jobs.security.login.domain.Dao.UserRepo;
 
@@ -18,7 +19,7 @@ public class JwtConfig {
     }
 
     @Bean
-    public JwtUtils jwtUtils(@Value("${offers.jwt.secret}") String jwtSecret,
+    public JwtUtils jwtUtils(@Value("${offers.jwt.secret:test}") String jwtSecret,
                              @Value("${offers.jwt.expiration.time.Mseconds}") int expirationTimeMSeconds) {
         return new JwtUtils(jwtSecret, expirationTimeMSeconds);
     }
@@ -31,7 +32,13 @@ public class JwtConfig {
 
     @Bean
     public AuthTokenFilter authTokenFilter   (@Autowired JwtUtils jwtUtils,
-                                              @Autowired UserDetailsService userDetailsService) {
-        return new AuthTokenFilter(jwtUtils, userDetailsService);
+                                              @Autowired UserDetailsService userDetailsService,
+                                              @Autowired SecurityContextUpdater securityContextUpdater) {
+        return new AuthTokenFilter(jwtUtils, userDetailsService, securityContextUpdater);
+    }
+
+    @Bean
+    public SecurityContextUpdater setAuthentication() {
+        return new SecurityContextUpdater();
     }
 }

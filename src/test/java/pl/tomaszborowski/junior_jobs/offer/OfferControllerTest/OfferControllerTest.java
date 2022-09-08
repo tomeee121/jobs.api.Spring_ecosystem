@@ -1,6 +1,5 @@
 package pl.tomaszborowski.junior_jobs.offer.OfferControllerTest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferErrorResponse;
 import pl.tomaszborowski.junior_jobs.offer.domain.OfferDtoSamples;
@@ -29,6 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = OfferControllerConfiguration.class)
 class OfferControllerTest implements OfferDtoSamples {
 
+    private static final String AUTH_HEADER_VALUE = "Bearer JwtToken";
+    private static final String AUTH_HEADER_NAME = "Authorization";
+
     @Test
     void shouldReturnStatusOkWithTwoElements_whenEndpointOffersInvoked(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception {
         //given
@@ -36,7 +37,7 @@ class OfferControllerTest implements OfferDtoSamples {
         String offers = objectMapper.writeValueAsString(offersList);
 
         //when
-        final MvcResult mvcResult = mockMvc.perform(get("/offers"))
+        final MvcResult mvcResult = mockMvc.perform(get("/offers").header(AUTH_HEADER_NAME, AUTH_HEADER_VALUE))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
         String actualResponseEntityBody = mvcResult.getResponse().getContentAsString();
@@ -52,7 +53,7 @@ class OfferControllerTest implements OfferDtoSamples {
         String expectedResponseBody = objectMapper.writeValueAsString(cybersourceDtoOffer());
 
         //when
-        final MvcResult mvcResult = mockMvc.perform(get("/offers/63073c6c2db2415cbc03afab"))
+        final MvcResult mvcResult = mockMvc.perform(get("/offers/63073c6c2db2415cbc03afab").header(AUTH_HEADER_NAME, AUTH_HEADER_VALUE))
                 .andExpect(status().isOk())
                 .andReturn();
         String actualResponseEntityBody = mvcResult.getResponse().getContentAsString();
@@ -68,7 +69,7 @@ class OfferControllerTest implements OfferDtoSamples {
         String offerErrorResponseJSON = objectMapper.writeValueAsString(offerErrorResponse);
 
         //when
-        final MvcResult mvcResult = mockMvc.perform(get("/offers/99"))
+        final MvcResult mvcResult = mockMvc.perform(get("/offers/99").header(AUTH_HEADER_NAME, AUTH_HEADER_VALUE))
                 .andExpect(status().isNotFound())
                 .andReturn();
         String contentAsString = mvcResult.getResponse().getContentAsString();
@@ -84,7 +85,8 @@ class OfferControllerTest implements OfferDtoSamples {
 
         //when
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/offers").content(uniqueOfferWithoutIdToAdd)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .header(AUTH_HEADER_NAME, AUTH_HEADER_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isCreated()).andReturn();
         String contentAdded = mvcResult.getResponse().getContentAsString();
 
@@ -98,7 +100,7 @@ class OfferControllerTest implements OfferDtoSamples {
         String offerToBeUpdatedWithId = objectMapper.writeValueAsString(getUniqueOfferDtoWithId());
 
         //when
-        MvcResult mvcResult = mockMvc.perform(post("/offers")
+        MvcResult mvcResult = mockMvc.perform(post("/offers").header(AUTH_HEADER_NAME, AUTH_HEADER_VALUE)
                         .content(offerToBeUpdatedWithId)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
@@ -114,7 +116,7 @@ class OfferControllerTest implements OfferDtoSamples {
         String duplicateOfferToBeAdded = objectMapper.writeValueAsString(getExistingUrlDtoOffer());
 
         //when
-        MvcResult mvcResult = mockMvc.perform(post("/offers")
+        MvcResult mvcResult = mockMvc.perform(post("/offers").header(AUTH_HEADER_NAME, AUTH_HEADER_VALUE)
                         .content(duplicateOfferToBeAdded)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isConflict()).andReturn();
@@ -130,7 +132,8 @@ class OfferControllerTest implements OfferDtoSamples {
         String emptyOfferUrlValidationMessage = "Offer url cannot be empty.";
 
         //when
-        MvcResult mvcResult = mockMvc.perform(post("/offers").content(emptyOfferJSON).contentType(MediaType.APPLICATION_JSON_VALUE))
+        MvcResult mvcResult = mockMvc.perform(post("/offers").content(emptyOfferJSON).contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header(AUTH_HEADER_NAME, AUTH_HEADER_VALUE))
                 .andExpect(status().isBadRequest()).andReturn();
         int responseStatus = mvcResult.getResponse().getStatus();
         String errorResponse = mvcResult.getResponse().getContentAsString();

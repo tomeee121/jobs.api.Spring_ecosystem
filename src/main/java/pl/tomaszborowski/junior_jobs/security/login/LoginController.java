@@ -1,5 +1,6 @@
 package pl.tomaszborowski.junior_jobs.security.login;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,26 +18,22 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/login")
+@RequiredArgsConstructor
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final SecurityContextUpdater securityContextUpdater;
 
-
-    public LoginController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtils = jwtUtils;
-    }
 
     @PostMapping
     public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDto loginRequestDto){
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getUserName(),
                 loginRequestDto.getPassword()));
-        if(authentication.isAuthenticated()){
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return new ResponseEntity<>(jwtUtils.generateJwt(authentication), HttpStatus.ACCEPTED);
-        }
-        return new ResponseEntity<String>("Bad credentials", HttpStatus.UNAUTHORIZED);
+        securityContextUpdater.setAuthentication(authentication);
+        System.out.println("autenticated  ");
+        return new ResponseEntity<>(jwtUtils.generateJwt(authentication), HttpStatus.ACCEPTED);
+
     }
 }

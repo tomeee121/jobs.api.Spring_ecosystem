@@ -1,6 +1,9 @@
 
 This app is managing and storing Java job offers from external api, with the authentication based on Spring Security.
 
+Firstly:
+- start with: docker compose up -d
+
 Include:
 - Spring Boot 2, Spring Security & Apache JWT helper implemented
 - Hibernate, Mongock, MongoDB & Express, Redis

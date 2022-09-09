@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ActiveProfiles;
 import pl.tomaszborowski.junior_jobs.config.MongoOffersIDs;
+import pl.tomaszborowski.junior_jobs.offer.domain.Dao.Offer;
 import pl.tomaszborowski.junior_jobs.offer.domain.Dto.OfferDto;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferExistsException;
 import pl.tomaszborowski.junior_jobs.offer.domain.Exceptions.OfferNotFoundException;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 public class OfferServiceTest implements OfferDtoSamples {
@@ -85,7 +87,7 @@ public class OfferServiceTest implements OfferDtoSamples {
     @Test
     public void whenOfferDtoPassedToCreateOrUpdateMethod_thenShouldReturnTheObject() {
         //given
-        when(mockOffersRepo.save((offerWithUniqueFieldsAndId))).thenReturn(offerWithUniqueFieldsAndId);
+        when(mockOffersRepo.save((isA(Offer.class)))).thenReturn(offerWithUniqueFieldsAndId);
 
         //when
         OfferDto actual = offerService.createOrUpdateOffer(getUniqueOfferDtoWithId());

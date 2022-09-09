@@ -30,6 +30,23 @@ public interface OfferDtoSamples {
         return OfferMapper.mapOfferToDto(emptyOffer);
     }
 
+    default OfferDto getServiceOfferDao(){
+        return OfferDto.builder()
+                .companyName("test")
+                .position("test position")
+                .salary("10k")
+                .offerUrl("test/example/11")
+                .build();
+    }
+    default OfferDto getServiceOfferDao2(){
+        return OfferDto.builder()
+                .companyName("test2")
+                .position("test position2")
+                .salary("11k")
+                .offerUrl("test/example/12")
+                .build();
+    }
+
     default pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto createHttpClientOfferDto(String companyName, String position, String salary, String offerUrl){
         pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto offerDto = new pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto();
         offerDto.setCompany(companyName);
@@ -41,15 +58,15 @@ public interface OfferDtoSamples {
 
     Offer cybersourceOffer = new Offer("63073c6c2db2415cbc03afab",
             "Software Engineer - Mobile (m/f/d)",
+            "Cybersource",
             "4k - 8k PLN",
-            "https://nofluffjobs.com/pl/job/software-engineer-mobile-m-f-d-cybersource-poznan-entavdpn",
-            "Cybersource");
+            "https://nofluffjobs.com/pl/job/software-engineer-mobile-m-f-d-cybersource-poznan-entavdpn");
 
     Offer cdqPolandOffer = new Offer("63073c6c2db2415cbc03afac",
             "Junior DevOps Engineer",
+            "CDQ Poland",
             "8k - 14k PLN",
-            "https://nofluffjobs.com/pl/job/junior-devops-engineer-cdq-poland-wroclaw-gnymtxqd",
-            "CDQ Poland");
+            "https://nofluffjobs.com/pl/job/junior-devops-engineer-cdq-poland-wroclaw-gnymtxqd");
 
     Offer offerWithUniqueFieldsAndId = new Offer("abc123",
             "Junior DevOps Engineer",
@@ -74,4 +91,6 @@ public interface OfferDtoSamples {
             "",
             "",
             "");
+
+
 }

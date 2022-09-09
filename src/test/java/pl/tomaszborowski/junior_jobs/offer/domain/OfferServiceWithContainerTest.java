@@ -37,15 +37,22 @@ public class OfferServiceWithContainerTest implements OfferSamples, OfferDtoSamp
     public void whenFindAllServiceMethodInvoked_ShouldReturnTwoElements(@Autowired OfferService offerService,
                                                                         @Autowired OfferRepo offerRepo) {
     //given
-    Offer cybersourceOffer = cybersourceOffer();
-    Offer cdq = cdqPolandOffer();
-    then(offerRepo.findAll()).containsAll(Arrays.asList(cybersourceOffer, cdq));
+        Offer cybersourceOffer = cybersourceOffer();
+        Offer cdq = cdqPolandOffer();
+        OfferDto cybersourceOfferDto = cybersourceDtoOffer();
+        OfferDto cdqDto = cdqPolandDtoOffer();
+        List<OfferDto> offersDto = Arrays.asList(cdqDto, cybersourceOfferDto);
+
+        List<Offer> offers = offerRepo.findAll();
+        assertThat(offers).usingElementComparatorIgnoringFields("id").containsExactlyInAnyOrderElementsOf(Arrays.asList(cybersourceOffer, cdq));
 
     //when
     final List<OfferDto> actual = offerService.findAllOffers();
 
     //then
-    assertThat(actual).containsExactlyInAnyOrderElementsOf(Arrays.asList(cybersourceDtoOffer(), cdqPolandDtoOffer()));
+    assertThat(actual).usingElementComparatorIgnoringFields("id").containsExactlyInAnyOrderElementsOf(offersDto);
+    assertThat(actual.size()).isEqualTo(2);
+
 
     }
 
@@ -53,14 +60,27 @@ public class OfferServiceWithContainerTest implements OfferSamples, OfferDtoSamp
     void whenFindByIdServiceMethodInvoked_RepoShouldReturnOneElement(@Autowired OfferRepo offerRepo,
                                                                      @Autowired OfferService service) {
         //given
-        OfferDto cybersourceOfferDto = cybersourceDtoOffer();
-        then(offerRepo.findById("63073c6c2db2415cbc03afab")).isPresent();
+        OfferDto expectedOfferDto;
+        List<Offer> offers = offerRepo.findAll();
+        String idOfOfferSaved;
+        if(offers.get(0).getCompany().equals("Cybersource")){
+            idOfOfferSaved = offers.stream().filter(company -> company.getCompany().equals("Cybersource")).findFirst().get().getId();
+            expectedOfferDto = cybersourceDtoOffer();
+        } else{
+            idOfOfferSaved = offers.stream().filter(company -> company.getCompany().equals("CDQ Poland")).findFirst().get().getId();
+            expectedOfferDto = cdqPolandDtoOffer();
+        }
+
+        then(offerRepo.findById(idOfOfferSaved)).isPresent();
 
         //when
-        final OfferDto actual = service.findOfferById("63073c6c2db2415cbc03afab");
+        final OfferDto actual = service.findOfferById(idOfOfferSaved);
 
         //then
-        assertThat(actual).isEqualTo(cybersourceOfferDto);
+        Assertions.assertThat(actual)
+                .usingRecursiveComparison()
+                .ignoringFields("id")
+                .isEqualTo(expectedOfferDto);
     }
 
     @Test

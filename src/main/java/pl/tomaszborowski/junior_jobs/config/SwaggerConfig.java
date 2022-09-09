@@ -3,6 +3,7 @@ package pl.tomaszborowski.junior_jobs.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import static springfox.documentation.builders.PathSelectors.any;
 
 @Configuration
+@Profile("!container")
 @EnableSwagger2
 public class SwaggerConfig {
 

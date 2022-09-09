@@ -22,15 +22,17 @@ public interface OfferSamples {
         return offer;
     }
 
-    Offer cybersourceOffer = new Offer("63073c6c2db2415cbc03afab",
+    Offer cybersourceOffer = new Offer(
+            "63073c6c2db2415cbc03afab",
             "Software Engineer - Mobile (m/f/d)",
+            "Cybersource",
             "4k - 8k PLN",
-            "https://nofluffjobs.com/pl/job/software-engineer-mobile-m-f-d-cybersource-poznan-entavdpn",
-            "Cybersource");
+            "https://nofluffjobs.com/pl/job/software-engineer-mobile-m-f-d-cybersource-poznan-entavdpn");
 
-    Offer cdqPolandOffer = new Offer("63073c6c2db2415cbc03afac",
+    Offer cdqPolandOffer = new Offer(
+            "63073c6c2db2415cbc03afac",
             "Junior DevOps Engineer",
+            "CDQ Poland",
             "8k - 14k PLN",
-            "https://nofluffjobs.com/pl/job/junior-devops-engineer-cdq-poland-wroclaw-gnymtxqd",
-            "CDQ Poland");
+            "https://nofluffjobs.com/pl/job/junior-devops-engineer-cdq-poland-wroclaw-gnymtxqd");
 }

@@ -40,7 +40,7 @@ public class OfferControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<OfferErrorResponse> constraintViolationExceptionResponse(MethodArgumentNotValidException exception){
         ArrayList<String> exceptions = new ArrayList<>();
-        exception.getBindingResult().getAllErrors().forEach(exceptionOccured -> exceptions.add(exceptionOccured.toString()));
+        exception.getBindingResult().getAllErrors().forEach(exceptionOccured -> exceptions.add(exceptionOccured.getDefaultMessage().toString()));
         OfferErrorResponse offerErrorResponse = new OfferErrorResponse(exceptions.toString(), HttpStatus.BAD_REQUEST);
         log.info("Exception thrown with message: "+offerErrorResponse);
 

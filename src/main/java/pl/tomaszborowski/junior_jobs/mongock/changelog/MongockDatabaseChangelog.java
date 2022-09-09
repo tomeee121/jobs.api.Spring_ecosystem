@@ -15,7 +15,6 @@ import pl.tomaszborowski.junior_jobs.security.login.domain.Dao.UserRepo;
 import java.util.Arrays;
 
 @ChangeLog(order = "1")
-@Profile("!container")
 public class MongockDatabaseChangelog {
 
     @ChangeSet(order = "001", author = "tomasz.borowski", id = "two.offers.initializing")

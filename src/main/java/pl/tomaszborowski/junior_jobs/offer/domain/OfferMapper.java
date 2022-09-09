@@ -17,7 +17,6 @@ public class OfferMapper {
 
     public static Offer mapToOffer(OfferDto offerDto){
         return Offer.builder()
-                .id(offerDto.getId())
                 .company(offerDto.getCompanyName())
                 .position(offerDto.getPosition())
                 .salary(offerDto.getSalary())

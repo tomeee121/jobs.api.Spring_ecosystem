@@ -30,8 +30,9 @@ public class OfferService {
         return offerRepo.findById(id).map(OfferMapper::mapOfferToDto).orElseThrow(() -> new OfferNotFoundException(id));
     }
     public List<OfferDto> saveOffers(List<OfferDto> offers) {
-        List<Offer> offersSaved = offerRepo.saveAll(offers.stream().map(offerDto -> OfferMapper.mapToOffer(offerDto))
-                .collect(Collectors.toList()));
+        List<Offer> offersDao = offers.stream().map(offerDto -> OfferMapper.mapToOffer(offerDto))
+                .collect(Collectors.toList());
+        List<Offer> offersSaved = offerRepo.saveAll(offersDao);
         return offersSaved.stream().map(offer -> OfferMapper.mapOfferToDto(offer)).collect(Collectors.toList());
     }
     public List<OfferDto> saveOffersDirectlyFromHttpClient(List<pl.tomaszborowski.junior_jobs.infrastructure.offer.DTO.OfferDto> offersFromHttpClient) {

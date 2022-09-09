@@ -30,4 +30,5 @@ public class Offer {
     @Field("offerUrl")
     @Indexed(unique = true)
     private String offerUrl;
+
 }

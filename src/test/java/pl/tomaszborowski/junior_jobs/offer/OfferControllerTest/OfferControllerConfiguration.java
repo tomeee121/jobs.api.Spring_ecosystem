@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Import({JwtFilterTestConfig.class, SecurityConfig.class, MessageSourceConfig.class})
-class OfferControllerConfiguration implements OfferDtoSamples {
+public class OfferControllerConfiguration implements OfferDtoSamples {
 
     @Bean
     OfferControllerExceptionHandler offerControllerExceptionHandler(){

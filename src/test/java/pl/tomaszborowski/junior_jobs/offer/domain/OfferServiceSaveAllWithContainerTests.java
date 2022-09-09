@@ -31,15 +31,16 @@ public class OfferServiceSaveAllWithContainerTests implements OfferSamples, Offe
     @Test
     public void whenInServiceSaveAllInvoked_ThenShouldAddTwoElementsToDB(@Autowired OfferService offerService) {
         //given
-        List<OfferDto> offerDtos = Arrays.asList(cybersourceDtoOffer(), cdqPolandDtoOffer());
+        List<OfferDto> offerDtos = Arrays.asList(getServiceOfferDao(), getServiceOfferDao2());
         int startNumberOfOfferDtos = offerService.findAllOffers().size();
 
         //when
-        List<OfferDto> savedDtoOffers = offerService.saveOffers(offerDtos);
+        offerService.saveOffers(offerDtos);
+        List<OfferDto> offersAfterSave = offerService.findAllOffers();
         int afterSaveOfferNumber = offerService.findAllOffers().size();
 
         //then
-        assertThat(afterSaveOfferNumber).isGreaterThan(startNumberOfOfferDtos);
-        assertThat(savedDtoOffers).containsAnyElementsOf(offerDtos);
+        assertThat(offersAfterSave).usingElementComparatorIgnoringFields("id").containsAnyElementsOf(offerDtos);
+
     }
 }
